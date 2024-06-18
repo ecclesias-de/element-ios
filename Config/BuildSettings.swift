@@ -107,17 +107,17 @@ final class BuildSettings: NSObject {
     }
     
     /// Default identity server
-    static let serverConfigDefaultIdentityServerUrlString = "https://vector.im"
+    static let serverConfigDefaultIdentityServerUrlString = "https://matrix-identity.pfarrverwaltung.de"
         
     static var serverConfigSygnalAPIUrlString: String {
-        MDMSettings.serverConfigSygnalAPIUrlString ?? "https://matrix.org/_matrix/push/v1/notify"
+        MDMSettings.serverConfigSygnalAPIUrlString ?? "https://matrix-push.pfarrverwaltung.de/_matrix/push/v1/notify"
     }
     
     // MARK: - Legal URLs
     
     // Note: Set empty strings to hide the related entry in application settings
     static let applicationCopyrightUrlString = "https://element.io/copyright"
-    static let applicationPrivacyPolicyUrlString = "https://element.io/privacy"
+    static let applicationPrivacyPolicyUrlString = "https://www.ecclesias.de/datenschutz/"
     static let applicationAcceptableUsePolicyUrlString = "https://element.io/acceptable-use-policy-terms"
     static let applicationHelpUrlString =
     "https://element.io/help"
@@ -141,6 +141,7 @@ final class BuildSettings: NSObject {
         // Client Permalinks (for use with `BuildSettings.clientPermalinkBaseUrl`)
 //        "example.com": ["/"],
 //        "www.example.com": ["/"],
+         "matrix.pfarrverwaltung.de": [],
     ]
     
     // For use in clients that use a custom base url for permalinks rather than matrix.to.
@@ -224,7 +225,7 @@ final class BuildSettings: NSObject {
     // Jitsi server used outside integrations to create conference calls from the call button in the timeline.
     // Setting this to nil effectively disables Jitsi conference calls (given that there is no wellknown override).
     // Note: this will not remove the conference call button, use roomScreenAllowVoIPForNonDirectRoom setting.
-    static let jitsiServerUrl: URL? = URL(string: "https://jitsi.riot.im")
+    static let jitsiServerUrl: URL? = URL(string: "https://conference.ecclesias.net/")
 
     
     // MARK: - Features
@@ -413,7 +414,7 @@ final class BuildSettings: NSObject {
     // MARK: - Location Sharing
     
     /// Overwritten by the home server's .well-known configuration (if any exists)
-    static let defaultTileServerMapStyleURL = URL(string: "https://api.maptiler.com/maps/streets/style.json?key=fU3vlMsMn4Jb6dnEIFsx")!
+    static let defaultTileServerMapStyleURL = URL(string: "https://maps.pfarrverwaltung.de/styles/basic/style.json")!
     
     static let locationSharingEnabled = true
     

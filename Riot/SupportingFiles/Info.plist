@@ -54,10 +54,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
+	<!-- <key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
 	<key>ITSEncryptionExportComplianceCode</key>
-	<string>d1dd539c-d21c-43e2-92e2-212c5269565c</string>
+	<string>99e9a8ab-3956-4649-85a7-fd390e15500b</string> -->
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>http</string>

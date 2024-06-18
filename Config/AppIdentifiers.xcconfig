@@ -16,13 +16,13 @@
 
 
 // App identity
-BUNDLE_DISPLAY_NAME = Element
-BASE_BUNDLE_IDENTIFIER = im.vector.app
-APPLICATION_GROUP_IDENTIFIER = group.im.vector
+BUNDLE_DISPLAY_NAME = ecclesias Chat
+BASE_BUNDLE_IDENTIFIER = net.ecclesias.chat
+APPLICATION_GROUP_IDENTIFIER = group.net.ecclesias.chat
 APPLICATION_SCHEME = element
 
 // Team
-DEVELOPMENT_TEAM = 7J4U792NQT
+DEVELOPMENT_TEAM = TC62G4GBN8
 
 
 // Provisioning profiles

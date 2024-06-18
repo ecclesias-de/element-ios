@@ -38,15 +38,15 @@ platform :ios do
 
   desc "Builds an ipa for the App Store"
   lane :app_store do |options|
-    UI.user_error!("'SENTRY_AUTH_TOKEN' environment variable should be set to use this lane, see Passbolt") unless !ENV["SENTRY_AUTH_TOKEN"].to_s.empty?
-    sentry_check_cli_installed
+    # UI.user_error!("'SENTRY_AUTH_TOKEN' environment variable should be set to use this lane, see Passbolt") unless !ENV["SENTRY_AUTH_TOKEN"].to_s.empty?
+    # sentry_check_cli_installed
 
     if !options.has_key?(:build_number)
       build_number = generate_build_number()
       options = { build_number: build_number }.merge(options)
     end
     build_release(options)
-    upload_dsyms_to_sentry
+    # upload_dsyms_to_sentry
   end
 
   desc "Builds an Alpha ipa for pull request branches"
@@ -94,7 +94,11 @@ platform :ios do
     # build the IPA
     app_store(options)
     # upload the IPA and metadata
-    deliver()
+    deliver(
+      submit_for_review: false,
+      skip_metadata: true,
+      skip_screenshots: true,
+    )
 
     # We haven't yet implemented/tested deliver/upload_to_appstore properly so keep it manual for now
     # UI.message("IPA is available at path '#{ENV['IPA_OUTPUT_PATH']}'. Please upload manually using Application Loader.")
@@ -354,7 +358,7 @@ platform :ios do
       skip_certificate_verification: skip_certificate_verification,
       output_path: output_path,
       filename: ENV["MAIN_PROVISIONING_PROFILE_FILENAME"],
-      readonly: true,
+      readonly: false,
     )
     # Share extension
     get_provisioning_profile(
@@ -365,7 +369,7 @@ platform :ios do
       skip_certificate_verification: skip_certificate_verification,
       output_path: output_path,
       filename: ENV["SHARE_EXTENSION_PROVISIONING_PROFILE_FILENAME"],
-      readonly: true,
+      readonly: false,
     )
     # Siri Intents extension
     get_provisioning_profile(
@@ -376,7 +380,7 @@ platform :ios do
       skip_certificate_verification: skip_certificate_verification,
       output_path: output_path,
       filename: ENV["SIRI_INTENTS_EXTENSION_PROVISIONING_PROFILE_FILENAME"],
-      readonly: true,
+      readonly: false,
     )
     # NSE
     get_provisioning_profile(
@@ -387,7 +391,7 @@ platform :ios do
       skip_certificate_verification: skip_certificate_verification,
       output_path: output_path,
       filename: ENV["NSE_PROVISIONING_PROFILE_FILENAME"],
-      readonly: true,
+      readonly: false,
     )
     # Broadcast Upload Extension
     get_provisioning_profile(
@@ -398,7 +402,7 @@ platform :ios do
       skip_certificate_verification: skip_certificate_verification,
       output_path: output_path,
       filename: ENV["BROADCAST_UPLOAD_EXTENSION_PROVISIONING_PROFILE_FILENAME"],
-      readonly: true,
+      readonly: false,
     )
   end
 
