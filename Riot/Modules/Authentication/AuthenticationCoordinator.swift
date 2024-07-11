@@ -131,14 +131,23 @@ final class AuthenticationCoordinator: NSObject, AuthenticationCoordinatorProtoc
 
         let flow: AuthenticationFlow = initialScreen == .login ? .login : .register
 
+        if true {
+            showEmailServerSelectionScreen(for: flow)
+            return
+        }
+        
         // Check if the user must select a server
         if BuildSettings.forceHomeserverSelection, authenticationService.provisioningLink?.homeserverUrl == nil {
+            // milan note: build ustom sever selection screen like that.
             showServerSelectionScreen(for: flow)
             return
         }
         
         do {
             // Start the flow (if homeserverAddress is nil, the default server will be used).
+            // milan note: here we could overwrite the homeserver: try await authenticationService.startFlow(parameters.flow, for: homeserverAddress)
+            //    Maybe wo could also set: authenticationService.provisioningLink?.homeserverUrl here or somewhere else.
+            // but we probably can lafe this as is. And build a custom server selection flow. And show screan from here.
             try await authenticationService.startFlow(flow)
         } catch {
             MXLog.error("[AuthenticationCoordinator] start: Failed to start, showing server selection.")
@@ -195,6 +204,40 @@ final class AuthenticationCoordinator: NSObject, AuthenticationCoordinatorProtoc
             }
         case .dismiss:
             MXLog.failure("[AuthenticationCoordinator] AuthenticationServerSelectionScreen is requesting dismiss when part of a stack.")
+        }
+    }
+    
+    @MainActor private func showEmailServerSelectionScreen(for flow: AuthenticationFlow) {
+        MXLog.debug("[AuthenticationCoordinator] showEmailServerSelectionScreen")
+        let parameters = AuthenticationEmailServerSelectionCoordinatorParameters(authenticationService: authenticationService,
+                                                                            flow: flow,
+                                                                            hasModalPresentation: false)
+        let coordinator = AuthenticationEmailServerSelectionCoordinator(parameters: parameters)
+        coordinator.callback = { [weak self, weak coordinator] result in
+            guard let self = self, let coordinator = coordinator else { return }
+            self.emailServerSelectionCoordinator(coordinator, didCompleteWith: result, for: flow)
+        }
+        
+        coordinator.start()
+        add(childCoordinator: coordinator)
+        
+        navigationRouter.push(coordinator, animated: true) { [weak self] in
+            self?.remove(childCoordinator: coordinator)
+        }
+    }
+    
+    @MainActor private func emailServerSelectionCoordinator(_ coordinator: AuthenticationEmailServerSelectionCoordinator,
+                                                       didCompleteWith result: AuthenticationEmailServerSelectionCoordinatorResult,
+                                                       for flow: AuthenticationFlow) {
+        switch result {
+        case .updated:
+            if flow == .register {
+                showRegistrationScreen()
+            } else {
+                showLoginScreen()
+            }
+        case .dismiss:
+            MXLog.failure("[AuthenticationCoordinator] AuthenticationEmailServerSelectionScreen is requesting dismiss when part of a stack.")
         }
     }
     
