@@ -126,19 +126,8 @@ final class OnboardingCoordinator: NSObject, OnboardingCoordinatorProtocol {
     
     /// Show the onboarding splash screen as the root module in the flow.
     private func showSplashScreen() {
-        MXLog.debug("[OnboardingCoordinator] showSplashScreen")
-        
-        let coordinator = OnboardingSplashScreenCoordinator()
-        coordinator.completion = { [weak self, weak coordinator] result in
-            guard let self = self, let coordinator = coordinator else { return }
-            self.splashScreenCoordinator(coordinator, didCompleteWith: result)
-        }
-        
-        coordinator.start()
-        add(childCoordinator: coordinator)
-        
-        navigationRouter.setRootModule(coordinator) { [weak self] in
-            self?.remove(childCoordinator: coordinator)
+        beginAuthentication(with: .login) { [weak self] in
+            self?.stopLoading()
         }
     }
 
