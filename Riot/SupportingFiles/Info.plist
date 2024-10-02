@@ -54,10 +54,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<!-- <key>ITSAppUsesNonExemptEncryption</key>
-	<true/>
-	<key>ITSEncryptionExportComplianceCode</key>
-	<string>99e9a8ab-3956-4649-85a7-fd390e15500b</string> -->
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>http</string>
@@ -75,7 +71,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>See your scheduled meetings in the app.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>The camera is used to make video calls, or take and upload photos and videos.</string>
+	<string>The camera is used to make video calls, or take and send photos and videos.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>They will be shared with your identity server to help find your contacts on Matrix.</string>
 	<key>NSFaceIDUsageDescription</key>
@@ -87,7 +83,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>The microphone is used to take videos, make calls.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photos to upload photos and videos from your library.</string>
+	<string>Allow access to photos to send photos and videos from your library.</string>
 	<key>NSSiriUsageDescription</key>
 	<string>Siri is used to perform calls even from the lock screen.</string>
 	<key>UIBackgroundModes</key>
