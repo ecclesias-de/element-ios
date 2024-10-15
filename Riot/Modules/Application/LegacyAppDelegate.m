@@ -2366,43 +2366,45 @@ NSString *const AppDelegateUniversalLinkDidChangeNotification = @"AppDelegateUni
 
 - (void)showLaunchAnimation
 {
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    
-    if (!launchAnimationContainerView && window)
-    {
-        MXLogDebug(@"[AppDelegate] showLaunchAnimation");
-        
-        MXSession *mainSession = self.mxSessions.firstObject;
-        LaunchLoadingView *launchLoadingView  = [LaunchLoadingView instantiateWithStartupProgress:mainSession.startupProgress];
-                
-        launchLoadingView.frame = window.bounds;
-        [launchLoadingView updateWithTheme:ThemeService.shared.theme];
-        launchLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        
-        [window addSubview:launchLoadingView];
-        
-        launchAnimationContainerView = launchLoadingView;
-        
-        [MXSDKOptions.sharedInstance.profiler startMeasuringTaskWithName:MXTaskProfileNameStartupLaunchScreen];
-    }
+// We disabled the animated logo. As we want to replace the element logo with our own. We should also replace the logo here, but we do not do. We only replace it in the static Launchscreen.
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//
+//    if (!launchAnimationContainerView && window)
+//    {
+//        MXLogDebug(@"[AppDelegate] showLaunchAnimation");
+//        
+//        MXSession *mainSession = self.mxSessions.firstObject;
+//        LaunchLoadingView *launchLoadingView  = [LaunchLoadingView instantiateWithStartupProgress:mainSession.startupProgress];
+//                
+//        launchLoadingView.frame = window.bounds;
+//        [launchLoadingView updateWithTheme:ThemeService.shared.theme];
+//        launchLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        
+//        [window addSubview:launchLoadingView];
+//        
+//        launchAnimationContainerView = launchLoadingView;
+//        
+//        [MXSDKOptions.sharedInstance.profiler startMeasuringTaskWithName:MXTaskProfileNameStartupLaunchScreen];
+//    }
 }
 
 - (void)hideLaunchAnimation
 {
-    if (launchAnimationContainerView)
-    {
-        id<MXProfiler> profiler = MXSDKOptions.sharedInstance.profiler;
-        MXTaskProfile *launchTaskProfile = [profiler taskProfileWithName:MXTaskProfileNameStartupLaunchScreen];
-        if (launchTaskProfile)
-        {
-            [profiler stopMeasuringTaskWithProfile:launchTaskProfile];
-            
-            MXLogDebug(@"[AppDelegate] hideLaunchAnimation: LaunchAnimation was shown for %.3fms", launchTaskProfile.duration * 1000);
-        }
-        
-        [self->launchAnimationContainerView removeFromSuperview];
-        self->launchAnimationContainerView = nil;
-    }
+// Animation is dissabled. See ^^
+//    if (launchAnimationContainerView)
+//    {
+//        id<MXProfiler> profiler = MXSDKOptions.sharedInstance.profiler;
+//        MXTaskProfile *launchTaskProfile = [profiler taskProfileWithName:MXTaskProfileNameStartupLaunchScreen];
+//        if (launchTaskProfile)
+//        {
+//            [profiler stopMeasuringTaskWithProfile:launchTaskProfile];
+//            
+//            MXLogDebug(@"[AppDelegate] hideLaunchAnimation: LaunchAnimation was shown for %.3fms", launchTaskProfile.duration * 1000);
+//        }
+//        
+//        [self->launchAnimationContainerView removeFromSuperview];
+//        self->launchAnimationContainerView = nil;
+//    }
 }
 
 - (void)configureCallManagerIfRequiredForSession:(MXSession *)mxSession
